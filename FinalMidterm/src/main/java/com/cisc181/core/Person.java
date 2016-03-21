@@ -78,7 +78,7 @@ public abstract class Person implements java.io.Serializable {
 		if (age < 100)
 			this.DOB = DOB;
 		else
-			throw new PersonException(age);
+			throw new PersonException(this);
 	}
 
 	public void setAddress(String newAddress) {
@@ -96,7 +96,7 @@ public abstract class Person implements java.io.Serializable {
 		if(matcher.matches())
 			this.phone_number = newPhone_number;
 		else
-			throw new PersonException(newPhone_number);
+			throw new PersonException(this);
 	
 	}
 

@@ -159,7 +159,43 @@ public class Student_Test {
 		double stud1GPA = stud1CumPoints/cumPointsTotal;
 		assertEquals(stud1GPA, correctGPA, .001);
 		
+		//All other GPAs are 2
+		for(int i = 6; i < enrollList.size(); i++)
+			enrollList.get(i).setGrade(2.0);
+			
+		
+		correctGPA = 2.0;
+
+		assertEquals(StudentGPA(studList.get(1).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(2).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(3).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(4).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(5).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(6).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(7).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(8).getStudentID()), correctGPA, .001);
+		assertEquals(StudentGPA(studList.get(9).getStudentID()), correctGPA, .001);
+		
 	}
+	//below is a method to test other students gpa
+	public double StudentGPA(UUID StudentID){
+		double studCumPoints = 0;
+		int cumPointsTotal = 0;
+		for(Enrollment e: enrollList)
+			if(e.getStudentID() == StudentID){ // change to .get(1) through .get(9) to get all other students
+				for(Section s: sectionList)
+					if(s.getSectionID() == e.getSectionID()){
+						for(Course c: courseList)
+							if(s.getCourseID() == c.getCourseID()){
+								studCumPoints += e.getGrade() * c.getGradePoints();
+								cumPointsTotal+= c.getGradePoints();
+							}
+					}	
+			}
+		double studGPA = studCumPoints/cumPointsTotal;
+		return studGPA;
+	}
+	
 	@Test
 	public void CourseAveragetest(){
 											//alternates 2.0, 3.0, 4.0, 2.0, 3.0 ...
